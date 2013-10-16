@@ -1,0 +1,17 @@
+<h2>Circle Name: <%= @friend_circle.name %></h2>
+
+Friends:
+<% @friend_circle.users.each do |user| %>
+	<%= link_to "#{user.email}", user_url(user) %><br>
+<% end %>
+
+Posts:
+<% @friend_circle.posts.each do |post| %>
+  <%= post.body %>
+  <ul>
+	  <% post.links.each do |link| %>
+	    <li><%= link.url %></li>
+			<br>
+	  <% end %>
+  </ul>
+<% end %>

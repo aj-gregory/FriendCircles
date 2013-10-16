@@ -1,0 +1,30 @@
+<h1><%= @user.email %></h1>
+
+<h2>Friend Circles</h2>
+
+<%= button_to "Create FriendCircle", new_friend_circle_url, :method => :get %>
+<br>
+
+New Post:
+<form action="<%= posts_url %>" method="post" accept-charset="utf-8">
+	<input type="hidden" name="authenticity_token" id="form_authenticity_token">
+
+	<label for="body">Body:</label>
+	<input type="textarea" name="post[body]" id="body"></textarea><br>
+
+	<% 3.times do |i| %>
+	<label for="link_<%= i %>">Link <%= i+1 %></label><input type="text" name="links[<%= i %>][url]" value="" id="link_<%= i %>">
+	<br>
+	<% end %>
+
+	<input type="hidden" name="post[friend_circle_ids][]" >
+
+	FriendCircles:<br>
+	<% FriendCircle.all.each do |friend_circle| %>
+		<label for="<%= friend_circle.id %>"><%= friend_circle.name %></label>
+		<input type="checkbox" name="post[friend_circle_ids][]" value="<%=friend_circle.id %>" id="<%= friend_circle.id%>">
+		<br>
+	<% end %>
+
+	<p><input type="submit" value="Post"></p>
+</form>
